@@ -9,6 +9,7 @@ First, run the development container:
 ```bash
 docker build -t gptnotesdev .
 docker run --rm -it -v ${PWD}:/gptnotes -p 3000:3000 gptnotesdev
+yarn next dev
 ```
 
 ## What's next? How do I make an app with this?
