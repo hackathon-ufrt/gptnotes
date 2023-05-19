@@ -3,10 +3,11 @@
 
 // dotenv.config({ path: path.resolve('.env') });
 
-import { listEngines } from "src/external/openai/chatGPTAdapter";
+import { listModels } from "src/external/openai/chatGPTAdapter";
 
 describe("OpenAIAPI", () => {
     it("list engines", async () => {
-        await listEngines();
+        const models = await listModels();
+        expect(models).toContain("gpt-3.5-turbo");
     });
   });
