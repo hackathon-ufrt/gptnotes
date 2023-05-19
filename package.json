@@ -9,7 +9,7 @@
     "lint": "next lint",
     "start": "next start",
     "db": "prisma studio",
-    "test": "jest",
+    "test": "jest --detectOpenHandles --forceExit",
     "testWatch": "jest --watch"
   },
   "dependencies": {
