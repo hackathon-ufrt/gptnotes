@@ -19,7 +19,7 @@ const Home: NextPage = () => {
             The worlds smartest{" "}
             <span className="text-[hsl(280,100%,70%)]">Todo</span> App
           </h1>
-          <div className="flex h-128 w-full gap-5">
+          <div className="flex h-128 w-full  gap-5">
             <SelectPageWrapper />
             <TodoBox />
           </div>
