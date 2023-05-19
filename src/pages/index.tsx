@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
 import { TodoList } from "~/components/todo/TodoList";
+import Button from "~/components/basic/Button";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -37,12 +38,12 @@ const Home: NextPage = () => {
           </h1>
           <div className="flex flex-col gap-5">
             <TodoList todos={todos.data ?? []} />
-            <button
+            <Button
               className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
               onClick={() => createTodoHandler()}
             >
               Create Todo
-            </button>
+            </Button>
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
