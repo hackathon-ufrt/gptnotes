@@ -20,6 +20,24 @@ export const todoRouter = createTRPCRouter({
       });
     }),
 
+  check: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        done: z.boolean(),
+      })
+    )
+    .mutation(({ input, ctx }) => {
+      return ctx.prisma.todo.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          done: input.done,
+        },
+      });
+    }),
+
   update: publicProcedure
     .input(
       z.object({
@@ -29,7 +47,7 @@ export const todoRouter = createTRPCRouter({
         content: z.optional(z.string().max(1000)),
       })
     )
-    .query(({ input, ctx }) => {
+    .mutation(({ input, ctx }) => {
       return ctx.prisma.todo.update({
         where: {
           id: input.id,
