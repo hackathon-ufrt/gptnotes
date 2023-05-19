@@ -17,10 +17,23 @@ export const messageRouter = createTRPCRouter({
       });
     }),
 
+  generateGPT: protectedProcedure.mutation(({ ctx }) => {
+    return ctx.prisma.message.create({
+      data: {
+        content: "Hello World from not GPT",
+        authorId: ctx.session.user.id,
+        isGPT: true,
+      },
+    });
+  }),
+
   findAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.message.findMany({
       where: {
         authorId: ctx.session.user.id,
+      },
+      include: {
+        character: true,
       },
     });
   }),

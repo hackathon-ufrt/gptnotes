@@ -1,7 +1,7 @@
-import { BaseType } from "~/types/baseType";
+import { type BaseType } from "~/types/baseType";
 
 type ButtonProps = BaseType & {
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export default function Button(props: ButtonProps) {

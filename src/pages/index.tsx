@@ -1,10 +1,9 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-
-import { ChatBox } from "~/components/chat/ChatBox";
 import { TodoBox } from "~/components/todo/TodoBox";
 import React from "react";
+import { SelectPageWrapper } from "~/components/chat/SelectPageWrapper";
 
 const Home: NextPage = () => {
   return (
@@ -21,7 +20,7 @@ const Home: NextPage = () => {
             <span className="text-[hsl(280,100%,70%)]">Todo</span> App
           </h1>
           <div className="flex h-128 w-full gap-5">
-            <ChatBox />
+            <SelectPageWrapper />
             <TodoBox />
           </div>
           <div className="flex flex-col items-center gap-2">
