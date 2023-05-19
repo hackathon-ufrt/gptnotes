@@ -104,11 +104,8 @@ describe("OpenAIAPI", () => {
             }
         ], [
             {
-                id: "1",
-                content: {
-                    type: "user",
-                    content: "Hello, please add a dinner meeting with Tom to my todo list"
-                },
+                type: "user",
+                content: "Hello, please add a dinner meeting with Tom to my todo list"
             },
         ]);
         console.log(actions);

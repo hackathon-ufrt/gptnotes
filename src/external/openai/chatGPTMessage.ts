@@ -1,6 +1,15 @@
-import { ChatGPTMessageContent } from "./chatGPTMessageContent"
+import { ChatGPTActionItems } from "./chatGPTActionItems";
 
-export type ChatGPTMessage = {
-    id: string,
-    content: ChatGPTMessageContent
+export type ChatGPTCharacter = {
+    type: "assistant",
+    characterDescription: string,
+    characterName: string,
+    actions: ChatGPTActionItems[],
 }
+
+export type ChatGPTUser = {
+    type: "user",
+    content: string
+}
+
+export type ChatGPTMessage = ChatGPTCharacter | ChatGPTUser;

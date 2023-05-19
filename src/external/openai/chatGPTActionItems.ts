@@ -17,8 +17,6 @@ export type ChatGPTActionPrint = {
 
 export type ChatGPTActionItems = ChatGPTAction | ChatGPTActionComplete | ChatGPTActionPrint;
 
-
-
 export function stringifyActionCode(actions: ChatGPTActionItems[]): string {
     return actions.map((action) => {
         switch (action.type) {

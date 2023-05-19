@@ -3,9 +3,8 @@ import { env } from "../../env.mjs";
 import { ChatCompletionRequestMessageRoleEnum } from "openai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { ChatGPTCharacter } from "./chatGPTMessageContent.js";
 import { ChatGPTTodo } from "./chatGPTTodo.js";
-import { ChatGPTMessage } from "./chatGPTMessage.js";
+import { ChatGPTCharacter, ChatGPTMessage } from "./chatGPTMessage.js";
 import { parseActionCode, stringifyActionCode } from "./chatGPTActionItems.js";
 
 const configuration = new Configuration({
@@ -20,7 +19,7 @@ export async function listModels() {
     return models;
 }
 
-export async function createOpenAICompletion(currentCharacter: ChatGPTCharacter, todoList: ChatGPTTodo[], chatHistory: ChatGPTMessage[]): Promise<ChatGPTCharacter> {
+export async function createOpenAICompletion(currentCharacter: ChatGPTCharacter, todoList: ChatGPTTodo[], chatHistory: ChatGPTMessage[]): Promise<ChatGPTMessage> {
     const system = `Tod-GPT is a chat application that helps manage your todo list. Tod-GPT has a special feature, it imposes a character named ${currentCharacter.characterName}, which is better explained as ${currentCharacter.characterDescription}.
 Tod-GPT MUST respond with only these commands:
 ADD(MM/DD/YYYY, "Text"): Creates a new todo list item
@@ -38,8 +37,8 @@ PRINT("Hi, i'm tod")
 
     let messages = chatHistory.map((message) => {
         return {
-            content: message.content.type === "assistant" ? stringifyActionCode(message.content.actions) : message.content.content,
-            role: message.content.type === "assistant" ? ChatCompletionRequestMessageRoleEnum.Assistant : ChatCompletionRequestMessageRoleEnum.User as ChatCompletionRequestMessageRoleEnum,
+            content: message.type === "assistant" ? stringifyActionCode(message.actions) : message.content,
+            role: message.type === "assistant" ? ChatCompletionRequestMessageRoleEnum.Assistant : ChatCompletionRequestMessageRoleEnum.User as ChatCompletionRequestMessageRoleEnum,
         };
     });
     messages = [{
@@ -101,7 +100,6 @@ PRINT("Hi, i'm tod")
             }
         }
     }
-
     return {
         type: "assistant",
         characterName: currentCharacter.characterName,
