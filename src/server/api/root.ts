@@ -1,6 +1,6 @@
 import {createTRPCRouter} from "~/server/api/trpc";
-import {exampleRouter} from "~/server/api/routers/example";
 import {todoRouter} from "~/server/api/routers/todo";
+import {messageRouter} from "~/server/api/routers/message";
 
 /**
  * This is the primary router for your server.
@@ -8,8 +8,8 @@ import {todoRouter} from "~/server/api/routers/todo";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  example: exampleRouter,
   todo: todoRouter,
+  message: messageRouter,
 });
 
 // export type definition of API
