@@ -8,7 +8,7 @@ First, run the development container:
 
 ```bash
 docker build -t gptnotesdev .
-docker run --rm -it -u $(id -u ${USER}):$(id -g ${USER}) -v ${PWD}:/gptnotes -p 3000:3000 gptnotesdev
+docker run --rm -it -u $(id -u ${USER}):$(id -g ${USER}) -v ${PWD}:/gptnotes -p 3000:3000 -p 5555:5555 gptnotesdev
 yarn
 yarn next dev
 ```
