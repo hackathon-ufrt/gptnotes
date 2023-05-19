@@ -18,7 +18,7 @@ export const messageRouter = createTRPCRouter({
     }),
 
   findAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.todo.findMany({
+    return ctx.prisma.message.findMany({
       where: {
         authorId: ctx.session.user.id,
       },
