@@ -16,7 +16,6 @@ const Home: NextPage = () => {
   });
 
   function createTodoHandler() {
-    console.log("createTodoHandler");
     createTodo.mutate({
       title: "Neues Todo",
       dueDate: new Date(),

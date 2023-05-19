@@ -7,7 +7,7 @@ export const todoRouter = createTRPCRouter({
       z.object({
         title: z.string().max(100),
         dueDate: z.date(),
-        content: z.optional(z.string()),
+        content: z.optional(z.string().max(1000)),
       })
     )
     .mutation(({ input, ctx }) => {
@@ -24,9 +24,9 @@ export const todoRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        title: z.string(),
+        title: z.string().max(100),
         dueDate: z.date(),
-        content: z.optional(z.string()),
+        content: z.optional(z.string().max(1000)),
       })
     )
     .query(({ input, ctx }) => {
@@ -38,20 +38,6 @@ export const todoRouter = createTRPCRouter({
           title: input.title,
           due: input.dueDate,
           content: input.content,
-        },
-      });
-    }),
-
-  findById: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      })
-    )
-    .query(({ input, ctx }) => {
-      return ctx.prisma.todo.findUnique({
-        where: {
-          id: input.id,
         },
       });
     }),
