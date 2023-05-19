@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { ChatBox } from "~/components/chat/ChatBox";
 import { SelectCharacterBox } from "~/components/chat/SelectCharacterBox";
+import { api } from "~/utils/api";
 
 export function SelectPageWrapper() {
   const [selected, setSelected] = useState<"CHARACTER" | "CHAT">("CHAT");
+
+  const me = api.me.getMe.useQuery();
 
   return (
     <div className="flex h-full w-full flex-col overflow-clip pb-10">
@@ -17,10 +20,14 @@ export function SelectPageWrapper() {
           }}
         >
           {"<"}
-          {}
         </button>
+        {me?.data?.activeCharacter?.name}
       </div>
-      {selected === "CHAT" ? <ChatBox /> : <SelectCharacterBox />}
+      {selected === "CHAT" ? (
+        <ChatBox />
+      ) : (
+        <SelectCharacterBox goToChat={() => setSelected("CHAT")} />
+      )}
     </div>
   );
 }

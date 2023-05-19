@@ -5,12 +5,20 @@ import { api } from "~/utils/api";
 
 type CharacterProps = BaseType & {
   character: CharacterResponse;
+  goToChat: () => void;
 };
 
 export function Character(props: CharacterProps) {
-  const { character } = props;
+  const { character, goToChat } = props;
 
-  const setCharacter = api.character.setActiveCharacter.useMutation();
+  const context = api.useContext();
+
+  const setCharacter = api.character.setActiveCharacter.useMutation({
+    onSuccess: async () => {
+      await context.me.invalidate();
+      goToChat();
+    },
+  });
 
   return (
     <button

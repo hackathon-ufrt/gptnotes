@@ -2,6 +2,7 @@ import {createTRPCRouter} from "~/server/api/trpc";
 import {todoRouter} from "~/server/api/routers/todo";
 import {messageRouter} from "~/server/api/routers/message";
 import {characterRouter} from "~/server/api/routers/character";
+import {meRouter} from "~/server/api/routers/me";
 
 /**
  * This is the primary router for your server.
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
   todo: todoRouter,
   message: messageRouter,
   character: characterRouter,
+  me: meRouter,
 });
 
 // export type definition of API
