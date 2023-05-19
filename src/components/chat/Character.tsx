@@ -23,9 +23,9 @@ export function Character(props: CharacterProps) {
   return (
     <button
       onClick={() => setCharacter.mutate({ id: character.id })}
-      className="flex h-8 w-full items-center rounded bg-white"
+      className="flex h-8 w-full items-center rounded bg-white pl-2"
     >
-      <p className="text-2xl ">{character.name}</p>
+      <p className="text-1xl ">{character.name}</p>
     </button>
   );
 }
