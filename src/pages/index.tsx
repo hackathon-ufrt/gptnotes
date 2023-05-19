@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { ChatBox } from "~/components/chat/ChatBox";
 import { TodoBox } from "~/components/todo/TodoBox";
+import React from "react";
 
 const Home: NextPage = () => {
   return (
