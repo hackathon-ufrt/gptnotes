@@ -3,7 +3,7 @@
 
 // dotenv.config({ path: path.resolve('.env') });
 
-import { createOpenAICompletion, listModels } from "src/external/openai/chatGPTAdapter";
+import { createOpenAICompletion, listModels } from "src/external/openai/chatGPTApi";
 
 describe("OpenAIAPI", () => {
     it("openai has gpt-3.5-turbo model", async () => {
