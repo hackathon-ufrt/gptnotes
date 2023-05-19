@@ -6,7 +6,7 @@
 import { listModels } from "src/external/openai/chatGPTAdapter";
 
 describe("OpenAIAPI", () => {
-    it("list engines", async () => {
+    it("openai has gpt-3.5-turbo model", async () => {
         const models = await listModels();
         expect(models).toContain("gpt-3.5-turbo");
     });
