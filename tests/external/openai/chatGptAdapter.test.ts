@@ -10,4 +10,4 @@ describe("OpenAIAPI", () => {
         const models = await listModels();
         expect(models).toContain("gpt-3.5-turbo");
     });
-  });
+});
