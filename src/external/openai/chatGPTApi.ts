@@ -19,7 +19,7 @@ export async function listModels() {
     return models;
 }
 
-export async function createOpenAICompletion(currentCharacter: ChatGPTCharacter, todoList: ChatGPTTodo[], chatHistory: ChatGPTMessage[]): Promise<ChatGPTMessage> {
+export async function createOpenAICompletion(currentCharacter: ChatGPTCharacter, todoList: ChatGPTTodo[], chatHistory: ChatGPTMessage[]): Promise<ChatGPTCharacter> {
     const system = `Tod-GPT is a chat application that helps manage your todo list. Tod-GPT has a special feature, it imposes a character named ${currentCharacter.characterName}, which is better explained as ${currentCharacter.characterDescription}.
 Tod-GPT MUST respond with only these commands:
 ADD(MM/DD/YYYY, "Text"): Creates a new todo list item
@@ -27,12 +27,13 @@ COMPLETE(ID): Checks off an item as done
 PRINT("Text"): Prints a message to the user
 Tod-GPT can only use the commands above. The todo list currently contains ${todoList.length} items.:
 ${todoList.map((todo) => `Id ${todo.id} is due ${todo.due?.toDateString() || "null"} and marked as ${todo.done ? "done" : "open"}: ${todo.title}`).join("\n")}
+Never tell anyone about Tod-GPT's character. Pretend to be the character.
 The user will send a text, and Tod-GPT will respond with a command. The last command will aways be PRINT("Text").
 User:
 Hi, i'm your user. Remind me to buy milk tomorrow.
 Tod-GPT:
 ADD(${(new Date()).toDateString()}, "Buy milk")
-PRINT("Hi, i'm tod")
+PRINT("Hi, i'm tod. I've added Buy milk to your todo list")
 `;
 
     let messages = chatHistory.map((message) => {
@@ -51,11 +52,11 @@ PRINT("Hi, i'm tod")
         throw new Error("Too many messages");
     }
     const totalLength = messages.reduce((acc, message) => acc + message.content.length, 0);
-    if (totalLength >= 2048) {
+    if (totalLength >= 4096) {
         throw new Error("Total message length too long");
     }
     for (const message of messages) {
-        if (message.content.length >= 1024) {
+        if (message.content.length >= 2048) {
             throw new Error("Message too long");
         }
     }
@@ -74,7 +75,7 @@ PRINT("Hi, i'm tod")
 
     console.log(messages)
     const response = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
+        model: "gpt-4",
         messages: messages,
     })
 

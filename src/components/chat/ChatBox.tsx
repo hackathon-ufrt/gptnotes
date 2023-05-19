@@ -26,6 +26,7 @@ export function ChatBox() {
   const requestGPTResponse = api.message.generateGPT.useMutation({
     onSuccess: () => {
       void context.message.invalidate();
+      void context.todo.invalidate();
     },
   });
 
