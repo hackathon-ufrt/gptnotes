@@ -49,7 +49,7 @@ export function ChatBox() {
       onSubmit={onSubmit}
       className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg "
     >
-      <div className="flex w-full flex-col items-end gap-3 overflow-scroll pl-3 pr-3">
+      <div className="flex w-full flex-col items-end gap-3 overflow-scroll pl-3 pr-3 scrollbar-hide">
         {messages.data?.map((message, index) => (
           <Message message={message} key={index} />
         ))}
