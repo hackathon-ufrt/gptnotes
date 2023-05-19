@@ -18,10 +18,14 @@ export default function Todo(props: { todo: TodoResponse }) {
     },
   });
 
-  const onClick = () =>
-    toast.promise(checkTodo.mutateAsync({ id: props.todo.id, done: !done }), {
-      pending: "Loading...",
-    });
+  const onClick = () => {
+    void toast.promise(
+      checkTodo.mutateAsync({ id: props.todo.id, done: !done }),
+      {
+        pending: "Loading...",
+      }
+    );
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-white/10 p-4">

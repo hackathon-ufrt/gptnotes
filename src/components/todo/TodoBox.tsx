@@ -1,7 +1,7 @@
-import { TodoList } from "~/components/todo/TodoList";
 import { api } from "~/utils/api";
 import Button from "~/components/basic/Button";
 import { toast } from "react-toastify";
+import Todo from "~/components/todo/Todo";
 
 export function TodoBox() {
   const todos = api.todo.findAll.useQuery();
@@ -24,7 +24,11 @@ export function TodoBox() {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <TodoList todos={todos.data ?? []} />
+      <div className="flex flex-col gap-3 overflow-scroll">
+        {todos.data?.map((todo, index) => (
+          <Todo todo={todo} key={index} />
+        ))}
+      </div>
       <Button onClick={createTodoHandler}>Create Todo</Button>
     </div>
   );

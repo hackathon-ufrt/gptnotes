@@ -1,8 +1,4 @@
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { z } from "zod";
 
 export const todoRouter = createTRPCRouter({
@@ -20,6 +16,7 @@ export const todoRouter = createTRPCRouter({
           title: input.title,
           due: input.dueDate,
           content: input.content,
+          authorId: ctx.session.user.id,
         },
       });
     }),
@@ -31,7 +28,18 @@ export const todoRouter = createTRPCRouter({
         done: z.boolean(),
       })
     )
-    .mutation(({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
+      const todo = await ctx.prisma.todo.findFirst({
+        where: {
+          id: input.id,
+          authorId: ctx.session.user.id,
+        },
+      });
+
+      if (!todo) {
+        throw new Error("No such todo");
+      }
+
       return ctx.prisma.todo.update({
         where: {
           id: input.id,
@@ -51,7 +59,18 @@ export const todoRouter = createTRPCRouter({
         content: z.optional(z.string().max(1000)),
       })
     )
-    .mutation(({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
+      const todo = await ctx.prisma.todo.findFirst({
+        where: {
+          id: input.id,
+          authorId: ctx.session.user.id,
+        },
+      });
+
+      if (!todo) {
+        throw new Error("No such todo");
+      }
+
       return ctx.prisma.todo.update({
         where: {
           id: input.id,
@@ -64,7 +83,11 @@ export const todoRouter = createTRPCRouter({
       });
     }),
 
-  findAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.todo.findMany();
+  findAll: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.todo.findMany({
+      where: {
+        authorId: ctx.session.user.id,
+      },
+    });
   }),
 });
