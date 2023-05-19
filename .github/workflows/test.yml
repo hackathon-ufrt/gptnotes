@@ -1,0 +1,26 @@
+name: Deployment Test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'Create env file'
+        run: echo "${{ secrets.ENV_FILE }}" > .env     
+
+      - name: 'Create next env file'
+        run: echo "${{ secrets.NEXT_ENV_FILE }}" > next-env.d.ts
+
+      - name: Install yarn
+        run: yarn 
+
+      - name: Run Test Cases
+        run: yarn test
+
+      - name: Built the app
+        run: yarn built
