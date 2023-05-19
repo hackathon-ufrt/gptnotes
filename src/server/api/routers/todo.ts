@@ -5,7 +5,7 @@ export const todoRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        title: z.string().max(100),
+        title: z.string().min(1).max(100),
         dueDate: z.date(),
         content: z.optional(z.string().max(1000)),
       })
@@ -54,7 +54,7 @@ export const todoRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        title: z.string().max(100),
+        title: z.string().min(1).max(100),
         dueDate: z.date(),
         content: z.optional(z.string().max(1000)),
       })

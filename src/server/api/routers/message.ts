@@ -5,7 +5,7 @@ export const messageRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        content: z.string().max(200),
+        content: z.string().min(1).max(200),
       })
     )
     .mutation(({ input, ctx }) => {
@@ -18,7 +18,7 @@ export const messageRouter = createTRPCRouter({
     }),
 
   findAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.todo.findMany({
+    return ctx.prisma.message.findMany({
       where: {
         authorId: ctx.session.user.id,
       },
