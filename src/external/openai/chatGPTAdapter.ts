@@ -3,6 +3,10 @@ import { env } from "../../env.mjs";
 import { ChatCompletionRequestMessageRoleEnum } from "openai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { ChatGPTCharacter } from "./chatGPTMessageContent.js";
+import { ChatGPTTodo } from "./chatGPTTodo.js";
+import { ChatGPTMessage } from "./chatGPTMessage.js";
+import { parseActionCode, stringifyActionCode } from "./chatGPTActionItems.js";
 
 const configuration = new Configuration({
     organization: env.OPENAI_ORGANIZATION,
@@ -14,112 +18,6 @@ export async function listModels() {
     const response = await openai.listModels();
     const models = response.data.data.map((model) => model.id);
     return models;
-}
-
-export type ChatGPTTodo = {
-    id: string
-    title: string
-    done: boolean
-    due: Date | null
-    content: string | null
-}
-
-export type ChatGPTCharacter = {
-    type: "assistant",
-    characterDescription: string,
-    characterName: string,
-    actions: ChatGPTActionItems[],
-}
-
-export type ChatGPTUser = {
-    type: "user",
-    content: string
-}
-
-export type ChatGPTMessageContent = ChatGPTCharacter | ChatGPTUser;
-
-export type ChatGPTMessage = {
-    id: string,
-    content: ChatGPTMessageContent
-}
-
-export type ChatGPTAction = {
-    type: "add",
-    due: Date,
-    content: string
-};
-
-export type ChatGPTActionComplete = {
-    type: "complete",
-    id: string
-};
-
-export type ChatGPTActionPrint = {
-    type: "print",
-    content: string
-};
-
-export type ChatGPTActionItems = ChatGPTAction | ChatGPTActionComplete | ChatGPTActionPrint;
-
-function stringifyActionCode(actions: ChatGPTActionItems[]): string {
-    return actions.map((action) => {
-        switch (action.type) {
-            case "add":
-                return `ADD(${action.due.toDateString()}, "${action.content}")`;
-            case "complete":
-                return `COMPLETE(${action.id})`;
-            case "print":
-                return `PRINT("${action.content}")`;
-        }
-    }).join("\n");
-}
-
-function parseActionCode(actionCode: string): ChatGPTActionItems[] {
-    const actions: ChatGPTActionItems[] = [];
-    const lines = actionCode.split("\n");
-    for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (trimmedLine.startsWith("ADD")) {
-            const match = trimmedLine.match(/^ADD\((.*), "(.*)"\)$/);
-            if (match === null) {
-                console.log(`Invalid ADD command: ${trimmedLine} in ${actionCode}`);
-                continue;
-            }
-            const due = new Date(match[1]!.toString());
-            const content = match[2]!;
-            actions.push({
-                type: "add",
-                due: due,
-                content: content ?? "",
-            });
-        } else if (trimmedLine.startsWith("COMPLETE")) {
-            const match = trimmedLine.match(/^COMPLETE\((.*)\)$/);
-            if (match === null) {
-                console.log(`Invalid COMPLETE command: ${trimmedLine} in ${actionCode}`);
-                continue;
-            }
-            const id = match[1]!;
-            actions.push({
-                type: "complete",
-                id: id,
-            });
-        } else if (trimmedLine.startsWith("PRINT")) {
-            const match = trimmedLine.match(/^PRINT\("(.*)"\)$/);
-            if (match === null) {
-                console.log(`Invalid PRINT command: ${trimmedLine} in ${actionCode}`);
-                continue;
-            }
-            const content = match[1]!;
-            actions.push({
-                type: "print",
-                content: content ?? "",
-            });
-        } else {
-            console.log(`Invalid command: ${trimmedLine} in ${actionCode}`);
-            continue;
-        }
-    }
-    return actions;
 }
 
 export async function createOpenAICompletion(currentCharacter: ChatGPTCharacter, todoList: ChatGPTTodo[], chatHistory: ChatGPTMessage[]): Promise<ChatGPTCharacter> {
