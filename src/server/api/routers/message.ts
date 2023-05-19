@@ -32,6 +32,9 @@ export const messageRouter = createTRPCRouter({
       where: {
         authorId: ctx.session.user.id,
       },
+      include: {
+        character: true,
+      },
     });
   }),
 });
