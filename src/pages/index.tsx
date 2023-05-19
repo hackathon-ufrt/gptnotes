@@ -3,24 +3,11 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import { TodoList } from "~/components/todo/TodoList";
+
+import { ChatBox } from "~/components/chat/ChatBox";
+import { TodoBox } from "~/components/todo/TodoBox";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const todos = api.todo.findAll.useQuery();
-
-  const createTodo = api.todo.create.useMutation({
-    onSuccess: async () => {
-      await todos.refetch();
-    },
-  });
-
-  function createTodoHandler() {
-    createTodo.mutate({
-      title: "Neues Todo",
-      dueDate: new Date(),
-    });
-  }
 
   return (
     <>
@@ -35,19 +22,11 @@ const Home: NextPage = () => {
             The worlds smartest{" "}
             <span className="text-[hsl(280,100%,70%)]">Todo</span> App
           </h1>
-          <div className="flex flex-col gap-5">
-            <TodoList todos={todos.data ?? []} />
-            <button
-              className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-              onClick={() => createTodoHandler()}
-            >
-              Create Todo
-            </button>
+          <div className="flex h-128 w-full gap-5">
+            <ChatBox />
+            <TodoBox />
           </div>
           <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-            </p>
             <AuthShowcase />
           </div>
         </div>

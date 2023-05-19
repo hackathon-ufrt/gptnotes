@@ -1,8 +1,12 @@
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { z } from "zod";
 
 export const todoRouter = createTRPCRouter({
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         title: z.string().max(100),
@@ -20,7 +24,25 @@ export const todoRouter = createTRPCRouter({
       });
     }),
 
-  update: publicProcedure
+  check: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        done: z.boolean(),
+      })
+    )
+    .mutation(({ input, ctx }) => {
+      return ctx.prisma.todo.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          done: input.done,
+        },
+      });
+    }),
+
+  update: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -29,7 +51,7 @@ export const todoRouter = createTRPCRouter({
         content: z.optional(z.string().max(1000)),
       })
     )
-    .query(({ input, ctx }) => {
+    .mutation(({ input, ctx }) => {
       return ctx.prisma.todo.update({
         where: {
           id: input.id,
