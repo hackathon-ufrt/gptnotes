@@ -28,6 +28,9 @@ export function ChatBox() {
       void context.message.invalidate();
       void context.todo.invalidate();
     },
+    onError: (err) => {
+      toast.error(err.message);
+    },
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
