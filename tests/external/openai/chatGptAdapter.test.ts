@@ -100,7 +100,6 @@ describe("OpenAIAPI", () => {
                 title: "Meet with Tom for dinner",
                 done: true,
                 due: new Date(),
-                content: null
             }
         ], [
             {

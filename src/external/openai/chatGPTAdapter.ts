@@ -3,9 +3,9 @@ import { env } from "../../env.mjs";
 import { ChatCompletionRequestMessageRoleEnum } from "openai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { ChatGPTTodo } from "./chatGPTTodo";
-import { ChatGPTCharacter, ChatGPTMessage } from "./chatGPTMessage";
-import { parseActionCode, stringifyActionCode } from "./chatGPTActionItems";
+import { ChatGPTTodo } from "src/external/openai/chatGPTTodo";
+import { ChatGPTCharacter, ChatGPTMessage } from "src/external/openai/chatGPTMessage";
+import { parseActionCode, stringifyActionCode } from "src/external/openai/chatGPTActionItems";
 
 const configuration = new Configuration({
     organization: env.OPENAI_ORGANIZATION,

@@ -4,5 +4,4 @@ export type ChatGPTTodo = {
     title: string
     done: boolean
     due: Date | null
-    content: string | null
 }
