@@ -36,7 +36,9 @@ export function ChatBox() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     void sendMessage.mutateAsync({ content: message }).then(() => {
-      requestGPTResponse.mutate();
+      void toast.promise(requestGPTResponse.mutateAsync(), {
+        pending: "Thinking...",
+      });
     });
   };
 
