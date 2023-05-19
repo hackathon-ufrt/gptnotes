@@ -17,6 +17,7 @@ export function SelectPageWrapper() {
           }}
         >
           {"<"}
+          {}
         </button>
       </div>
       {selected === "CHAT" ? <ChatBox /> : <SelectCharacterBox />}

@@ -45,18 +45,20 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
-  name          String?
-  email         String?     @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  Todo          Todo[]
-  Message       Message[]
-  Character     Character[]
+  id                String      @id @default(cuid())
+  name              String?
+  email             String?     @unique
+  emailVerified     DateTime?
+  image             String?
+  accounts          Account[]
+  sessions          Session[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  todo              Todo[]
+  message           Message[]
+  character         Character[]
+  activeCharacterId String?
+  activeCharacter   Character?  @relation("CharacterActiveForUser", fields: [activeCharacterId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model VerificationToken {
@@ -68,17 +70,17 @@ model VerificationToken {
 }
 
 model Todo {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  title     String
-  done      Boolean   @default(false)
-  due       DateTime?
-  content   String?
+  title   String
+  done    Boolean   @default(false)
+  due     DateTime?
+  content String?
 
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
 }
 
 model Character {
@@ -89,9 +91,12 @@ model Character {
   name    String
   content String
 
-  author   User?     @relation(fields: [authorId], references: [id])
+  author   User?   @relation(fields: [authorId], references: [id])
   authorId String?
-  Message  Message[]
+
+  activeForUser User[] @relation("CharacterActiveForUser")
+
+  message Message[]
 }
 
 model Message {
@@ -101,7 +106,7 @@ model Message {
 
   content String
 
-  isGPT      Boolean    @default(false)
+  isGPT       Boolean    @default(false)
   character   Character? @relation(fields: [characterId], references: [id])
   characterId String?
 
