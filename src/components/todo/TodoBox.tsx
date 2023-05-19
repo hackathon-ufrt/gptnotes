@@ -1,6 +1,7 @@
 import { TodoList } from "~/components/todo/TodoList";
 import { api } from "~/utils/api";
 import Button from "~/components/basic/Button";
+import { toast } from "react-toastify";
 
 export function TodoBox() {
   const todos = api.todo.findAll.useQuery();
@@ -8,6 +9,9 @@ export function TodoBox() {
   const createTodo = api.todo.create.useMutation({
     onSuccess: async () => {
       await todos.refetch();
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
 
