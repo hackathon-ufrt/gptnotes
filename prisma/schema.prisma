@@ -104,7 +104,7 @@ model Message {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  content String
+  content String @db.Text
 
   isGPT       Boolean    @default(false)
   character   Character? @relation(fields: [characterId], references: [id])
