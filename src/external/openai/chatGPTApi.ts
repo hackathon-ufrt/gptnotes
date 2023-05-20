@@ -20,7 +20,7 @@ export async function listModels() {
 }
 
 export async function createOpenAICompletion(currentCharacter: ChatGPTCharacter, todoList: ChatGPTTodo[], chatHistory: ChatGPTMessage[]): Promise<ChatGPTCharacter> {
-    const system = `Tod-GPT is a chat application that helps manage your todo list. Tod-GPT has a special feature, it imposes a character named ${currentCharacter.characterName}, which is better explained as ${currentCharacter.characterDescription}.
+    const system = `Tod-GPT is a chat application that helps manage your todo list. Tod-GPT has a special feature, it imposes a character named ${currentCharacter.characterName}, ${currentCharacter.characterDescription}.
 Tod-GPT MUST respond with only these commands:
 ADD(MM/DD/YYYY, "Text"): Creates a new todo list item
 COMPLETE(ID): Checks off an item as done
