@@ -125,6 +125,10 @@ export const messageRouter = createTRPCRouter({
       include: {
         character: true,
       },
+      take: 6,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }),
 

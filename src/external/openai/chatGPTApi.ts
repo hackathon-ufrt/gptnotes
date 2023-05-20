@@ -53,14 +53,22 @@ PRINT("Hi, i'm tod. I've added Buy milk to your todo list")
     if (messages.length >= 7) {
         throw new Error("Too many messages");
     }
-    const totalLength = messages.reduce((acc, message) => acc + message.content.length, 0);
-    if (totalLength >= 4096) {
-        throw new Error("Total message length too long");
+    if (todoList.length >= 10) {
+        throw new Error("Too many todo items");
     }
     for (const message of messages) {
         if (message.content.length >= 2048) {
             throw new Error("Message too long");
         }
+    }
+    for (const todo of todoList) {
+        if (todo.title.length >= 256) {
+            throw new Error("Todo item too long");
+        }
+    }
+    const totalLength = messages.reduce((acc, message) => acc + message.content.length, 0);
+    if (totalLength >= 4096) {
+        throw new Error("Total message length too long");
     }
 
     // Do rate limiting with upstash
