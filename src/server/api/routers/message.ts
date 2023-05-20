@@ -127,4 +127,12 @@ export const messageRouter = createTRPCRouter({
       },
     });
   }),
+
+  deleteAll: protectedProcedure.mutation(({ ctx }) => {
+    return ctx.prisma.message.deleteMany({
+      where: {
+        authorId: ctx.session.user.id,
+      },
+    });
+  }),
 });
