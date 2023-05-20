@@ -71,7 +71,7 @@ export function ChatBox() {
 
   return (
     <div
-      className="flex flex-grow w-full flex-col items-center justify-center gap-1 rounded-lg bg-purple-200 "
+      className="flex h-32 grow w-full flex-col items-center justify-center gap-1 rounded-lg bg-purple-200 "
     >
       <button className="h-8 w-full" onClick={clearChatHandler}>Clear chat</button>
       <div className="m-0 flex h-full w-full flex-col items-end gap-3 overflow-scroll p-2 scrollbar-hide">
