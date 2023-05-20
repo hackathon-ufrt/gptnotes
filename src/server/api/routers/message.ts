@@ -88,6 +88,23 @@ export const messageRouter = createTRPCRouter({
           },
         });
       }
+      if (action.type === "delete") {
+        await ctx.prisma.todo.delete({
+          where: {
+            id: action.id,
+          },
+        });
+      }
+      if (action.type === "uncomplete") {
+        await ctx.prisma.todo.update({
+          where: {
+            id: action.id,
+          },
+          data: {
+            done: false,
+          },
+        });
+      }
     }
 
     return ctx.prisma.message.create({

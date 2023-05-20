@@ -6,6 +6,7 @@ import React from "react";
 import { SelectPageWrapper } from "~/components/chat/SelectPageWrapper";
 
 const Home: NextPage = () => {
+  const { data: sessionData } = useSession();
   return (
     <>
       <Head>
@@ -19,10 +20,12 @@ const Home: NextPage = () => {
             The worlds smartest{" "}
             <span className="text-[hsl(280,100%,70%)]">Todo</span> App
           </h1>
-          <div className="flex h-full w-full flex-col gap-5 md:h-128 md:flex-row-reverse">
-            <TodoBox />
-            <SelectPageWrapper />
-          </div>
+          {sessionData &&
+            <div className="flex h-full w-full flex-col gap-5 md:h-128 md:flex-row-reverse">
+              <TodoBox />
+              <SelectPageWrapper />
+            </div>
+          }
           <div className="flex items-center">
             <AuthShowcase />
           </div>

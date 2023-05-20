@@ -10,12 +10,22 @@ export type ChatGPTActionComplete = {
     id: string
 };
 
+export type ChatGPTActionDelete = {
+    type: "delete",
+    id: string
+};
+
+export type ChatGPTActionUncomplete = {
+    type: "uncomplete",
+    id: string
+};
+
 export type ChatGPTActionPrint = {
     type: "print",
     content: string
 };
 
-export type ChatGPTActionItems = ChatGPTAction | ChatGPTActionComplete | ChatGPTActionPrint;
+export type ChatGPTActionItems = ChatGPTAction | ChatGPTActionComplete | ChatGPTActionPrint | ChatGPTActionDelete | ChatGPTActionUncomplete;
 
 export function stringifyActionCode(actions: ChatGPTActionItems[]): string {
     return actions.map((action) => {
@@ -24,6 +34,10 @@ export function stringifyActionCode(actions: ChatGPTActionItems[]): string {
                 return `ADD(${action.due.toDateString()}, "${action.content}")`;
             case "complete":
                 return `COMPLETE(${action.id})`;
+            case "delete":
+                return `DELETE(${action.id})`;
+            case "uncomplete":
+                return `UNCOMPLETE(${action.id})`;
             case "print":
                 return `PRINT("${action.content}")`;
         }
@@ -57,6 +71,28 @@ export function parseActionCode(actionCode: string): ChatGPTActionItems[] {
             const id = match[1]!;
             actions.push({
                 type: "complete",
+                id: id,
+            });
+        } else if (trimmedLine.startsWith("DELETE")) {
+            const match = trimmedLine.match(/^DELETE\((.*)\)$/);
+            if (match === null) {
+                console.log(`Invalid DELETE command: ${trimmedLine} in ${actionCode}`);
+                continue;
+            }
+            const id = match[1]!;
+            actions.push({
+                type: "delete",
+                id: id,
+            });
+        } else if (trimmedLine.startsWith("UNCOMPLETE")) {
+            const match = trimmedLine.match(/^UNCOMPLETE\((.*)\)$/);
+            if (match === null) {
+                console.log(`Invalid UNCOMPLETE command: ${trimmedLine} in ${actionCode}`);
+                continue;
+            }
+            const id = match[1]!;
+            actions.push({
+                type: "uncomplete",
                 id: id,
             });
         } else if (trimmedLine.startsWith("PRINT")) {
