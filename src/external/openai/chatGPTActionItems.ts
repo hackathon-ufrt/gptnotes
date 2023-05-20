@@ -39,7 +39,7 @@ export function stringifyActionCode(actions: ChatGPTActionItems[]): string {
             case "uncomplete":
                 return `UNCOMPLETE(${action.id})`;
             case "print":
-                return `PRINT("${action.content}")`;
+                return `PRINT("${action.content.replace("\n", "\\n")}")`;
         }
     }).join("\n");
 }
@@ -101,7 +101,7 @@ export function parseActionCode(actionCode: string): ChatGPTActionItems[] {
                 console.log(`Invalid PRINT command: ${trimmedLine} in ${actionCode}`);
                 continue;
             }
-            const content = match[1]!;
+            const content = match[1]!.replace("\\n", "\n");
             actions.push({
                 type: "print",
                 content: content ?? "",
