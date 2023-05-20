@@ -53,9 +53,9 @@ export function ChatBox() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg bg-purple-200 "
+      className=" flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg bg-purple-200 "
     >
-      <div className="m-0 flex w-full flex-col items-end gap-3 overflow-scroll  p-2 scrollbar-hide">
+      <div className="m-0 flex h-full w-full flex-col items-end gap-3 overflow-scroll  p-2 scrollbar-hide">
         {messages.data?.map((message, index) => (
           <Message message={message} key={index} />
         ))}

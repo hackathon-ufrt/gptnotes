@@ -26,7 +26,17 @@ export function Message(props: MessageProps) {
   return (
     <div className="flex w-full flex-row">
       {!message.isGPT && <div className="w-2/6" />}
-      <div className="w-full rounded bg-purple-50 p-1">{visualContent}</div>
+      <div
+        className={
+          "w-full rounded-2xl bg-purple-50 p-2 " +
+          (message.isGPT ? " rounded-bl-none" : "rounded-br-none")
+        }
+      >
+        {message.isGPT && message.character?.name && (
+          <p className="text-purple-500">{message.character.name}</p>
+        )}
+        {visualContent}
+      </div>
       {message.isGPT && <div className="w-2/6" />}
     </div>
   );
