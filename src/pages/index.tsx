@@ -14,11 +14,11 @@ const Home: NextPage = () => {
         <meta name="description" content="Smartest Todo app on the market" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gray-900">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             The worlds smartest{" "}
-            <span className="text-[hsl(280,100%,70%)]">Todo</span> App
+            <span className="text-green-500">Todo</span> App
           </h1>
           {sessionData &&
             <div className="flex h-full w-full flex-col gap-5 md:h-128 md:flex-row-reverse">
