@@ -1,4 +1,4 @@
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
 import { z } from "zod";
 
 export const characterRouter = createTRPCRouter({
@@ -19,7 +19,7 @@ export const characterRouter = createTRPCRouter({
       });
     }),
 
-  findAll: protectedProcedure.query(({ ctx }) => {
+  findAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.character.findMany({
       where: {},
     });

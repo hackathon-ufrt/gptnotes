@@ -83,6 +83,31 @@ export const todoRouter = createTRPCRouter({
       });
     }),
 
+  delete: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const todo = await ctx.prisma.todo.findFirst({
+        where: {
+          id: input.id,
+          authorId: ctx.session.user.id,
+        },
+      });
+
+      if (!todo) {
+        throw new Error("No such todo");
+      }
+
+      return ctx.prisma.todo.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
   findAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.todo.findMany({
       where: {

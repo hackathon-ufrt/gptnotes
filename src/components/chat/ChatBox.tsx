@@ -33,6 +33,25 @@ export function ChatBox() {
     },
   });
 
+  const deleteMessage = api.message.deleteAll.useMutation({
+    onSuccess: async () => {
+      await context.message.invalidate();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const clearChatHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    void toast.promise(
+      deleteMessage.mutateAsync(),
+      {
+        pending: "Loading...",
+      }
+    );
+  };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     void sendMessage.mutateAsync({ content: message }).then(() => {
@@ -51,17 +70,20 @@ export function ChatBox() {
   }, [messages]);
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className=" flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg bg-purple-200 "
+    <div
+      className="flex flex-grow w-full flex-col items-center justify-center gap-1 rounded-lg bg-purple-200 "
     >
-      <div className="m-0 flex h-full w-full flex-col items-end gap-3 overflow-scroll  p-2 scrollbar-hide">
-        {messages.data?.map((message, index) => (
+      <button className="h-8 w-full" onClick={clearChatHandler}>Clear chat</button>
+      <div className="m-0 flex h-full w-full flex-col items-end gap-3 overflow-scroll p-2 scrollbar-hide">
+        {messages.data?.slice(0).reverse().map((message, index) => (
           <Message message={message} key={index} />
         ))}
         <div className="h-0 w-0" ref={messagesEndRef} />
       </div>
-      <TextInput placeholder="Message" value={message} setValue={setMessage} />
-    </form>
+      <form className="flex w-full" onSubmit={onSubmit}>
+        <TextInput placeholder="Message" value={message} setValue={setMessage} />
+        <button className="h-8 w-20" type="submit">Send</button>
+      </form>
+    </div>
   );
 }

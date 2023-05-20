@@ -9,7 +9,7 @@ export function SelectPageWrapper() {
   const me = api.me.getMe.useQuery();
 
   return (
-    <div className="flex w-full flex-col overflow-clip rounded bg-purple-200  md:pb-10">
+    <div className="flex w-full flex-col overflow-clip rounded bg-purple-200">
       <div className="h-10 w-full  rounded bg-white">
         <button
           className="h-10 w-10"
