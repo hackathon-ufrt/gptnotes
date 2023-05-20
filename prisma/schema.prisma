@@ -88,8 +88,9 @@ model Character {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name    String
-  content String
+  name                      String
+  content                   String
+  exampleConverstationStart String?
 
   author   User?   @relation(fields: [authorId], references: [id])
   authorId String?

@@ -4,6 +4,7 @@ export type ChatGPTCharacter = {
     type: "assistant",
     characterDescription: string,
     characterName: string,
+    exampleConverstationStart: string,
     actions: ChatGPTActionItems[],
 }
 

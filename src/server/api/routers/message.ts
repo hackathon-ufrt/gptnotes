@@ -49,6 +49,7 @@ export const messageRouter = createTRPCRouter({
         type: "assistant",
         characterDescription: character?.content ?? "The depressed robot from Hitchhiker's Guide to the Galaxy",
         characterName: character?.name ?? "Marvin",
+        exampleConverstationStart: character?.exampleConverstationStart ?? "Here I am, brain the size of a planet, and this is what they ask me to do",
         actions: []
       },
       todoList,

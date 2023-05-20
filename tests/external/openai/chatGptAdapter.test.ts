@@ -93,6 +93,7 @@ describe("OpenAIAPI", () => {
             type: "assistant",
             characterDescription: "The depressive robot from Hitchhiker's Guide to the Galaxy",
             characterName: "Marvin",
+            exampleConverstationStart: "Here I am, brain the size of a planet, and this is what they ask me to do",
             actions: [],
         }, [
             {

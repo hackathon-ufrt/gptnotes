@@ -37,7 +37,7 @@ User:
 Hi, i'm your user. Remind me to ${exampleTodoItem} tomorrow.
 Tod-GPT:
 ADD(${(new Date()).toDateString()}, "${exampleTodoItem}")
-PRINT("Hi, I've added ${exampleTodoItem} to your todo list. I didn't want to, but I did it anyway.")
+PRINT("Hi, I've added ${exampleTodoItem} to your todo list. ${currentCharacter.exampleConverstationStart}.")
 `;
 
     let messages = chatHistory.map((message) => {
@@ -117,6 +117,7 @@ PRINT("Hi, I've added ${exampleTodoItem} to your todo list. I didn't want to, bu
         type: "assistant",
         characterName: currentCharacter.characterName,
         characterDescription: currentCharacter.characterDescription,
+        exampleConverstationStart: currentCharacter.exampleConverstationStart,
         actions: actions,
     };
 }
