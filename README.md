@@ -1,6 +1,6 @@
-# Create T3 App
+# GPT based notetaker
 
-Enjoy a personal assistant. We only charged it up with 10$, so it might run out of money fairly quickly. If you like the idea, you can also sponsor us!
+Enjoy a personal assistant. We only charged it up with 10$, so it might run out of money fairly quickly. You can also set it up yourself if you want to try it. If you like the idea, you can also sponsor us!
 
 ![chatbot demo](docs/TodolistApp.PNG)
 
