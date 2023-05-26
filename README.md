@@ -1,6 +1,27 @@
 # Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Enjoy a personal assistant. We only charged it up with 10$, so it might run out of money fairly quickly. If you like the idea, you can also sponsor us!
+
+![chatbot demo](docs/TodolistApp.PNG)
+
+The following characters are currently available:
+
+- **Drunk Ron**, someone who parties all the time and hates sea turtles
+- **Marvin**, the depressed robot from Hitchhiker's Guide to the Galaxy
+- **Barack Obama**, who is annoyed because it is his day-off
+- **Dwayne the rock johnson**, after he is exhausted from the workout
+- **Iron Man**, who constantly thinks he has something better to do like saving the world
+- **Joe Biden**, who constantly mumbles about a nuclear strike but keeps forgetting things
+- **Chaos guy**, the worst assistant, because it does always the opposite of what it is asked to do
+
+This project resulted from a 1-day hackathon with
+
+- Tobias Jacob: https://www.linkedin.com/in/tobias-jacob-811b62189/
+- Felix Schmelzer: https://github.com/felixschmelzer
+- Umut Tuglu: https://www.linkedin.com/in/umut-tuglu-988906210/
+- Ron Beiersdörfer: https://www.linkedin.com/in/ron-beiersd%C3%B6rfer-088b64267/
+
+If you like our work and want to do similar stuff, don't be shy to reach out to us!
 
 ## Getting Started
 
@@ -12,28 +33,3 @@ docker run --rm -it -u $(id -u ${USER}):$(id -g ${USER}) -v ${PWD}:/gptnotes -p 
 yarn
 yarn next dev
 ```
-
-## What's next? How do I make an app with this?
-
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
