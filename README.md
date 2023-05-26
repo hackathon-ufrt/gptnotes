@@ -2,6 +2,8 @@
 
 Enjoy a personal assistant. We only charged it up with 10$, so it might run out of money fairly quickly. You can also set it up yourself if you want to try it. If you like the idea, you can also sponsor us!
 
+- Link to demo: https://gptnotes.vercel.app/
+
 ![chatbot demo](docs/TodolistApp.PNG)
 
 The following characters are currently available:
